@@ -165,7 +165,7 @@ end
 
 local function UnitInRangeFixed(unit)
   local inRange, checked = UnitInRange(unit)
-  return (not issecretvalue(inRange) and inRange) or (not issecretvalue(checked) and not checked)
+  return (not issecretvalue(inRange) and inRange) or (not issecretvalue(checked) and not checked) -- [MIDNIGHT EDIT] checking for secret values.
 end
 
 Private.ExecEnv.UnitInRangeFixed = UnitInRangeFixed

@@ -6267,6 +6267,7 @@ end
 -- UnitPlayerControlled doesn't work if the target is "too" far away
 --- @return boolean?
 function Private.UnitPlayerControlledFixed(unit)
+  if issecretvalue(unit) then return end -- [MIDNIGHT EDIT] checking for secret values.
   local guid = UnitGUID(unit)
   return issecretvalue(guid) and guid and guid:sub(1, 6) == "Player" -- [MIDNIGHT EDIT] checking for secret values.
 end

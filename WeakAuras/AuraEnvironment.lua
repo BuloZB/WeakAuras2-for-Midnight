@@ -67,6 +67,7 @@ end
 
 -- UTF-8 Sub is pretty commonly needed
 local WA_Utf8Sub = function(input, size)
+  if issecretvalue(input) then return end -- [MIDNIGHT EDIT] checking for secret values.
   local output = ""
   input = tostring(input)
   if type(input) ~= "string" then
@@ -113,6 +114,7 @@ WeakAuras.WA_Utf8Sub = WA_Utf8Sub
 local WA_ClassColorName = function(unit, maxlen)
   if unit and UnitExists(unit) then
     local name = WeakAuras.UnitName(unit)
+    if issecretvalue(name) then return name end	-- [MIDNIGHT EDIT] checking for secret values.
     if maxlen and maxlen > 0 then
       name = WA_Utf8Sub(name, maxlen)
     end
@@ -132,6 +134,7 @@ end
 WeakAuras.WA_ClassColorName = WA_ClassColorName
 
 WeakAuras.PadString = function(input, padMode, padLength)
+  if issecretvalue(input) then return input end -- [MIDNIGHT EDIT] checking for secret values.
   input = tostring(input)
   if type(input) ~= "string" then
     return input

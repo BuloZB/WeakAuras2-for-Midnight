@@ -798,8 +798,8 @@ local funcs = {
 
       if anchorPoint == "bar" then
         anchor = self
-      elseif anchorPoint == "icon" then
-        anchor = self.icon
+      elseif anchorPoint == "icon" then 
+        anchor = self -- [MIDNIGHT EDIT] attaching the subRegion to the Icon makes GetSize, GetHeight, and GetWidth return secrets for subRegions if the Icon is given a secret texture.
       elseif anchorPoint == "fg" then
         anchor = self.bar.fgMask
       elseif anchorPoint == "bg" then
@@ -821,7 +821,7 @@ local funcs = {
       anchorYOffset = anchorYOffset or 0
 
       if anchorPoint:sub(1, 5) == "ICON_" then
-        anchorRegion = self.icon
+        anchorRegion = self -- [MIDNIGHT EDIT] attaching the subRegion to the Icon makes GetSize, GetHeight, and GetWidth return secrets for subRegions if the Icon is given a secret texture.
         anchorPoint = anchorPoint:sub(6)
       elseif anchorPoint:sub(1, 6) == "INNER_" then
         anchorPoint = anchorPoint:sub(7)
