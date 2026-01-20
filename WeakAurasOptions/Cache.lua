@@ -80,8 +80,8 @@ function spellCache.Build()
   local co = coroutine.create(function()
     metaData.rebuilding = true
     local id = 0
-    local misses = 1 -- [MIDNIGHT EDIT] prevents a client-crash on Beta.
-    while misses < 0 do -- [MIDNIGHT EDIT] prevents a client-crash on Beta.
+    local misses = 0
+    while misses < 80000 do
       id = id + 1
       local name = OptionsPrivate.Private.ExecEnv.GetSpellName(id)
       local icon = OptionsPrivate.Private.ExecEnv.GetSpellIcon(id)
@@ -128,6 +128,7 @@ function spellCache.Build()
     metaData.needsRebuild = false
     metaData.rebuilding = false
   end)
+  do return end -- [MIDNIGHT EDIT] this causes a crash on Beta, for now we don't run the coroutine.
   OptionsPrivate.Private.Threads:Add("spellCache", co, 'background')
 end
 

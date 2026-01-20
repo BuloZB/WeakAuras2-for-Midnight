@@ -135,20 +135,20 @@ local ProgressFuncs = {
   UpdateFrame = function(self)
     if self.visible then
       local progressData = self.progressData
-      if progressData.progressType == "static" then
+      if progressData.progressType == "static" then 
         local progress = 0
-        if progressData.total ~= 0 then
+        if not issecretvalue(progressData.total) and progressData.total ~= 0 then -- [MIDNIGHT EDIT] checking for secret values.
           progress = progressData.value / progressData.total
         end
         self.stopMotion:SetProgress(progress)
       elseif progressData.progressType == "timed" then
         if progressData.paused then
           local remaining = self.progressData.remaining
-          local progress = 1 - (remaining / self.progressData.duration)
+          local progress = 1 - (not issecretvalue(remaining) and not issecretvalue(self.progressData.duration) and remaining / self.progressData.duration or 0) -- [MIDNIGHT EDIT] checking for secret values.
           self.stopMotion:SetProgress(progress)
         else
-          local remaining = self.progressData.expirationTime - GetTime()
-          local progress = 1 - (remaining / self.progressData.duration)
+          local remaining = not issecretvalue(self.progressData.expirationTime) and self.progressData.expirationTime - GetTime() or 0 -- [MIDNIGHT EDIT] checking for secret 
+          local progress = 1 - (not issecretvalue(self.progressData.duration) and remaining / self.progressData.duration or 0) -- [MIDNIGHT EDIT] checking for secret 
           self.stopMotion:SetProgress(progress)
         end
       end

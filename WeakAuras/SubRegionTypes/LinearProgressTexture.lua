@@ -162,8 +162,8 @@ local funcs = {
       local progressData = self.progressData
       if progressData.progressType == "static" then
         local progress = 0
-        if progressData.total ~= 0 then
-          progress = progressData.value / progressData.total
+        if not issecretvalue(progressData.total) and progressData.total ~= 0 then -- [MIDNIGHT EDIT] checking for secret values.
+          progress = not issecretvalue(progressData.value) and progressData.value / progressData.total or 0 -- [MIDNIGHT EDIT] checking for secret values.
         end
         if self.inverse then
           progress = 1 - progress
@@ -174,18 +174,18 @@ local funcs = {
           local remaining = self.progressData.remaining
           local duration = self.progressData.duration
           local progress
-          if duration == 0 then
+          if not issecretvalue(duration) and duration == 0 then
             progress = 0
           else
-            progress = remaining / duration
+            progress = not issecretvalue(remaining) and not issecretvalue(duration) and remaining / duration or 0 -- [MIDNIGHT EDIT] checking for secret values.
             if self.inverse then
               progress = 1 - progress
             end
           end
           self.linearTexture:SetValue(0, progress)
         else
-          local remaining = self.progressData.expirationTime - GetTime()
-          local progress = remaining / self.progressData.duration
+          local remaining = not issecretvalue(self.progressData.expirationTime) and self.progressData.expirationTime - GetTime() or 0 -- [MIDNIGHT EDIT] checking for secret 
+          local progress = not issecretvalue(self.progressData.duration) and remaining / self.progressData.duration or 0 -- [MIDNIGHT EDIT] checking for secret 
           if self.inverse then
             progress = 1 - progress
           end
