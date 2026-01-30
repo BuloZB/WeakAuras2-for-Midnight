@@ -3832,10 +3832,12 @@ Private.event_prototypes = {
             end
           ]])
         elseif powerType == 99 then
+		  -- [MIDNIGHT EDIT] adding staggerPercent.
           table.insert(ret, ([[
             local power = UnitStagger(unit) or 0
             local scaleStagger = %s
             local total = math.max(1, UnitHealthMax(unit) * scaleStagger)
+			local staggerPercent = power/total*100
           ]]):format(trigger.use_scaleStagger and trigger.scaleStagger or 1))
         elseif powerType == 4 and trigger.unit == 'player' then
           table.insert(ret, ([[
@@ -4040,7 +4042,7 @@ Private.event_prototypes = {
         name = "percentpower",
         display = L["Power (%)"],
         type = "number",
-        init = "UnitPowerPercent(unit,powerType,false,CurveConstants.ScaleTo100)", -- [MIDNIGHT EDIT] adding the new API.
+        init = "powerType and powerType == 99 and staggerPercent or UnitPowerPercent(unit,powerType,false,CurveConstants.ScaleTo100)", -- [MIDNIGHT EDIT] adding the new API.
         store = true,
         conditionType = "number",
         multiEntry = {

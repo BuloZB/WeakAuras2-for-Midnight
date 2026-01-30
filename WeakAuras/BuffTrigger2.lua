@@ -4352,7 +4352,7 @@ function BuffTrigger.HandleMultiEvent(frame, event, ...)
   elseif event == "UNIT_AURA" then
     local unit = ...
     local guid = UnitGUID(unit)
-    if not issecretvalue(GUID) and matchDataMulti[guid] then -- [MIDNIGHT EDIT] checking for secret values.
+    if not issecretvalue(GUID) and GUID and matchDataMulti[guid] then -- [MIDNIGHT EDIT] checking for secret values.
       CheckAurasMulti(matchDataMulti[guid], unit, "HELPFUL")
       CheckAurasMulti(matchDataMulti[guid], unit, "HARMFUL")
     end

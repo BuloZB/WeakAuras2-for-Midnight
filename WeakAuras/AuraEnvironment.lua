@@ -688,15 +688,15 @@ local function CreateFunctionCache(exec_env)
       return self.funcs[string]
     else
 	  --[[MIDNIGHT DEBUG PRINT]
-	  --if id == "New" then
+	  if id == "New" then
         local indextest = 1
         for line in string:gmatch('[^\r\n]+') do
       	  indextest = indextest+1
-	  	  if abs(indextest-11) < 5 then
+	  	  if abs(indextest-22) < 5 then
 	  	    print(indextest,line)
 	  	  end
         end
-	  --end
+	  end
 	  -- [MIDNIGHT DEBUG PRINT]]
       local loadedFunction, errorString = loadstring(string, firstLine(string))
       if errorString then

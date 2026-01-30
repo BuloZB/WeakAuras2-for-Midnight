@@ -128,7 +128,6 @@ function spellCache.Build()
     metaData.needsRebuild = false
     metaData.rebuilding = false
   end)
-  do return end -- [MIDNIGHT EDIT] this causes a crash on Beta, for now we don't run the coroutine.
   OptionsPrivate.Private.Threads:Add("spellCache", co, 'background')
 end
 
